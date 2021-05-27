@@ -37,6 +37,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TripStartComponent } from './trips/trip-start/trip-start.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment.prod';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -61,9 +64,12 @@ import { MatNativeDateModule } from '@angular/material/core';
   ],
   imports: [
     BrowserModule,
+
+
     AppRoutingModule,
     BrowserAnimationsModule,
-
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
