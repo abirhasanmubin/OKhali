@@ -1,0 +1,17 @@
+<div style="margin-top: 20px;">
+  <button *ngIf="!vehicle" mat-stroked-button [routerLink]=" ['/profile','vehicle','new']">
+    Add Vehicle Information
+  </button>
+  <button *ngIf="vehicle" mat-stroked-button
+    [routerLink]="['/profile','vehicle',vehicle.vehicleId]">
+    Edit Vehicle Information
+  </button>
+  <hr>
+
+  <h4>{{vehicle.vehicleName}}</h4>
+  <div>
+    <p>Produced By: {{vehicle.vehicleCompany}}</p>
+    <p>Type: {{vehicle.vehicleType}}</p>
+    <p>No. of Seats: {{vehicle.noOfSeats}}</p>
+  </div>
+</div>

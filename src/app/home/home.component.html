@@ -1,3 +1,33 @@
-<mat-grid-list cols="1">
-
+<mat-grid-list cols="1" rowHeight="fit">
+  <mat-card style="text-align: center;">
+    <mat-card-title>O-Khali</mat-card-title>
+    <mat-card-content style="text-align: justify;">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quidem facere fugiat praesentium dolores
+        consectetur assumenda enim voluptatibus possimus, nesciunt placeat minima distinctio totam harum illo eaque
+        eligendi molestiae eum, sed odit fugit adipisci. Distinctio reprehenderit pariatur consectetur, unde aliquid
+        placeat libero fuga dolorum illo sint numquam perspiciatis deleniti repellat esse exercitationem voluptas in cum
+        similique quaerat magni cupiditate accusamus animi velit. Assumenda libero ipsa repudiandae nesciunt eius
+        incidunt eveniet maxime eum autem sit reprehenderit, corporis quod nobis beatae, deleniti reiciendis totam.
+        Aliquid at dolore quia? Accusantium libero provident id rerum facere et nesciunt tenetur impedit alias. Eaque,
+        eveniet perspiciatis.</p>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button mat-stroked-button [routerLink]="['/signup']">
+        Sign Up
+      </button>
+      <button mat-stroked-button [routerLink]="['/login']">
+        Login
+      </button>
+      <hr width="25%" style="text-align: center;">
+      or, Signup Using
+      <br>
+      <button mat-icon-button>
+        <mat-icon>G</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>facebook</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </mat-grid-list>

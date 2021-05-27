@@ -30,12 +30,17 @@ import { TripEditComponent } from './trips/trip-edit/trip-edit.component';
 import { TripItemComponent } from './trips/trip-list/trip-item/trip-item.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
-import { VehicleComponent } from './profile/profile/vehicle/vehicle.component';
-import { VehicleDetailComponent } from './profile/profile/vehicle/vehicle-detail/vehicle-detail.component';
-import { VehicleEditComponent } from './profile/profile/vehicle/vehicle-edit/vehicle-edit.component';
+import { VehicleComponent } from './profile/vehicle/vehicle.component';
+import { VehicleDetailComponent } from './profile/vehicle/vehicle-detail/vehicle-detail.component';
+import { VehicleEditComponent } from './profile/vehicle/vehicle-edit/vehicle-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TripStartComponent } from './trips/trip-start/trip-start.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment.prod';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -60,9 +65,13 @@ import { TripStartComponent } from './trips/trip-start/trip-start.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
 
+    AngularFirestoreModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
@@ -73,6 +82,7 @@ import { TripStartComponent } from './trips/trip-start/trip-start.component';
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatRadioModule,
     MatTabsModule,

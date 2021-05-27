@@ -1,0 +1,16 @@
+.form{
+  align-self: flex-start;
+}
+.tripForm {
+  width: 100%;
+  text-align: left;
+}
+
+.mat-form-field{
+  width: 80%;
+}
+
+.mat-grid-tile-content{
+  align-items: flex-start !important;
+}
+

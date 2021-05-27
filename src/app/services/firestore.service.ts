@@ -1,9 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, OnDestroy } from '@angular/core';
+
+import {
+  AngularFirestore, AngularFirestoreCollection
+} from '@angular/fire/firestore'
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirestoreService {
+export class FirestoreService implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(
+    public firestore: AngularFirestore
+  ) { }
+
+  ngOnInit() {
+
+  }
+
+  ngOnDestroy() {
+
+  }
 }
