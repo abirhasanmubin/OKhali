@@ -36,6 +36,7 @@ import { VehicleEditComponent } from './profile/vehicle/vehicle-edit/vehicle-edi
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TripStartComponent } from './trips/trip-start/trip-start.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { TripStartComponent } from './trips/trip-start/trip-start.component';
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatRadioModule,
     MatTabsModule,

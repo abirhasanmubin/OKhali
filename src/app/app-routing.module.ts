@@ -22,7 +22,8 @@ const routes: Routes = [
   { path: "signup", component: SignupComponent },
   {
     path: "trips", component: TripsComponent, children: [
-      { path: "", component: TripListComponent },
+      { path: "", component: TripStartComponent },
+      { path: "new", component: TripEditComponent },
       { path: ":id", component: TripDetailComponent },
       { path: ":id/edit", component: TripEditComponent },
       { path: "id/delete", component: TripEditComponent },

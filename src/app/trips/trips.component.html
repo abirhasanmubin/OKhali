@@ -1,1 +1,8 @@
-<p>trips works!</p>
+<mat-grid-list cols="3" rowHeight="100vh">
+  <mat-grid-tile colspan="1">
+    <app-trip-list></app-trip-list>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <router-outlet></router-outlet>
+  </mat-grid-tile>
+</mat-grid-list>
