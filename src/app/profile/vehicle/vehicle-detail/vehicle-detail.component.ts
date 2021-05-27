@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
@@ -19,7 +19,7 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.vehicleSub = this.vehicleService
-      .getVehicle("7eC6ooS3Hxka0piioBFv").subscribe(data => {
+      .getVehicle("MlaiiQsDtY1XdX31uqsx").subscribe(data => {
         this.vehicle = data;
       });
   }

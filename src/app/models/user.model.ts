@@ -6,6 +6,8 @@ export class User {
     public isVehicleOwner: boolean,
     private _token: string,
     private _tokenExpired: Date,
+    public userReview: number,
+    public userReviewedBy: number,
     public vehicleId?: string,
     public userId?: string,
   ) { }

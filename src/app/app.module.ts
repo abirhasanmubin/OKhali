@@ -40,6 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment.prod';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -64,11 +65,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   ],
   imports: [
     BrowserModule,
-
-
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+
     AngularFirestoreModule,
     MatButtonModule,
     MatCardModule,
