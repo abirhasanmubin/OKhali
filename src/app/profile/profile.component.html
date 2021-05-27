@@ -1,1 +1,20 @@
-<p>profile works!</p>
+<mat-grid-list cols="4">
+  <mat-grid-tile colspan="1">
+    <mat-list>
+      <mat-list-item>
+        <a [routerLink]="['/profile','detail']">
+          Profile
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+
+        <a [routerLink]="['/profile','detail']">
+          Profile
+        </a>
+      </mat-list-item>
+    </mat-list>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3">
+    <router-outlet></router-outlet>
+  </mat-grid-tile>
+</mat-grid-list>
