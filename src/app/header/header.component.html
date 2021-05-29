@@ -1,18 +1,26 @@
-<mat-toolbar>
-  <button mat-icon-button routerLink="/">
-    <mat-icon>home</mat-icon>
-  </button>
-  <span routerLink="/" style="cursor: pointer;">
-    O-Khali
-  </span>
-  <button mat-button routerLink="/trips">
-    Trips
-  </button>
-  <span class="example-spacer"></span>
-  <button mat-button routerLink="/profile">
-    Profile
-  </button>
-  <button mat-button routerLink="/logout">
-    Logout
-  </button>
-</mat-toolbar>
+<nav class="navbar navbar-expand-lg navbar-light bg-teal">
+  <div class="container-fluid">
+    <a [routerLink]="['/']" routerLinkActive="router-link-active" class="navbar-brand">O-Khali</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [routerLink]="['/']" routerLinkActive="router-link-active" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/trips']" routerLinkActive="router-link-active" class="nav-link">Trips</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [routerLink]="['/profile']" routerLinkActive="router-link-active" class="nav-link">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
