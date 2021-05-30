@@ -1,20 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,12 +25,9 @@ import { VehicleEditComponent } from './profile/vehicle/vehicle-edit/vehicle-edi
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TripStartComponent } from './trips/trip-start/trip-start.component';
-import { MatNativeDateModule } from '@angular/material/core';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from 'src/environments/environment.prod';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -65,6 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     TripStartComponent
   ],
   imports: [
+
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -73,22 +60,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule
 
-    MatButtonModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatRadioModule,
-    MatTabsModule,
-    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AuthResponseData, AuthService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { AuthResponseData, AuthService } from 'src/app/services/auth.service';
 export class SignupComponent implements OnInit, OnDestroy {
 
   signUpForm: FormGroup;
-  signUpObs: Observable<AuthResponseData>;
+  signUpSub: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -41,15 +42,15 @@ export class SignupComponent implements OnInit, OnDestroy {
       let password = values['password'];
       let isDriver = values['isDriver'];
 
-      this.signUpObs = this.authService.signup(email, password, name, contact, isDriver);
+      let tempUser = new User(name, email, contact, isDriver);
 
-      this.signUpObs.subscribe(responseData => {
-        console.log(responseData);
-      });
+      this.signUpSub = this.authService.signup(tempUser, password).subscribe();
       this.signUpForm.reset();
     }
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this.signUpSub.unsubscribe();
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
-
+  loginSub: Subscription;
   constructor(
     private authService: AuthService,
   ) { }
@@ -23,19 +24,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       ]),
       'password': new FormControl('', Validators.required)
     })
+
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       let email = this.loginForm.value['email'];
       let password = this.loginForm.value['password'];
-      console.log(email.password);;
+      this.loginSub = this.authService.login(email, password).subscribe();
     }
     this.loginForm.reset();
   }
 
   ngOnDestroy() {
-
+    this.loginSub.unsubscribe();
   }
 
 }
