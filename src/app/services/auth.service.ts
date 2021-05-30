@@ -1,8 +1,10 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Subject, throwError } from "rxjs";
+import { Injectable, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subject, Subscription, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { User } from "../models/user.model";
+import { UserService } from "./user.service";
 
 
 export interface AuthResponseData {
@@ -23,9 +25,10 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService implements OnDestroy {
 
   user = new Subject<User>();
+  userSubscription: Subscription;
 
   signupUrl: string
     = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCYroLcNUSv3PihR38oy6jk584qb3E8cMo'
@@ -35,7 +38,9 @@ export class AuthService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService,
+    private router: Router
   ) { }
 
   signup(email: string, password: string, name: string,
@@ -47,7 +52,7 @@ export class AuthService {
     }).pipe(catchError(this.handleError),
       tap(responseData => {
 
-        this.handleAuthentication(
+        this.handleSignUp(
           responseData.email,
           responseData.localId,
           responseData.idToken,
@@ -66,13 +71,21 @@ export class AuthService {
       returnSecureToken: true
     }).pipe(catchError(this.handleError),
       tap(responseData => {
-        console.log(responseData);
+        this.handleAuthentication(
+          responseData.email,
+          responseData.localId,
+          responseData.idToken,
+          +responseData.expiresIn,
+        )
       }));
   }
 
-  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number, name: string, contact: string, isDriver: boolean) {
+  private handleSignUp(email: string, userId: string, token: string, expiresIn: number,
+    name: string, contact: string, isDriver: boolean) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-    const newUser = new User(
+    let tempUser: User;
+
+    tempUser = new User(
       userId,
       name,
       email,
@@ -81,8 +94,20 @@ export class AuthService {
       token,
       expirationDate,
     );
-    console.log(newUser);
-    this.user.next(newUser);
+
+    this.userService.addUser(tempUser);
+    this.router.navigate(['/login']);
+
+  }
+
+  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    let tempUser: User;
+    let userSubscription = this.userService.getUser(userId).subscribe(data => {
+      tempUser = data;
+    });
+    console.log(tempUser);
+    this.user.next(tempUser);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -106,5 +131,9 @@ export class AuthService {
         break;
     }
     return throwError(errorMessage);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }

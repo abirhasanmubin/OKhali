@@ -30,8 +30,6 @@ export class VehicleService {
   addVehicle(vehicle: Vehicle) {
     const id = this.firestore.createId();
     vehicle.vehicleId = id;
-    console.log(typeof vehicle);
-    console.log(vehicle);
 
     return this.vehicleCollection.doc(vehicle.vehicleId)
       .set(Object.assign({}, vehicle));

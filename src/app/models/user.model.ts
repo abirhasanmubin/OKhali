@@ -12,7 +12,10 @@ export class User {
     public vehicleId?: string,
   ) { }
 
-  getToken() {
+  get token() {
+    if (!this._tokenExpired || new Date() > this._tokenExpired) {
+      return null;
+    }
     return this._token;
   }
 }
