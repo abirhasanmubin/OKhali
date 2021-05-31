@@ -8,11 +8,12 @@ import { Trip } from 'src/app/models/trips.model';
 })
 export class TripItemComponent implements OnInit {
 
-  @Input() trip: Trip = null;
+  @Input() trip: Trip;
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -14,7 +14,8 @@ export class TripService {
   tripCollection: AngularFirestoreCollection<Trip>
 
   constructor(
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+
   ) {
     this.tripCollection = this.firestore.collection<Trip>('trips');
 
@@ -31,23 +32,21 @@ export class TripService {
     return this.trips;
   }
 
-
-
   getTrip(id: string) {
     this.trip = this.tripCollection.doc(id).snapshotChanges()
       .pipe(map(action => {
         const data = action.payload.data() as Trip;
         return data;
       }))
+    return this.trip;
   }
 
   addTrip(trip: Trip) {
     const id = this.firestore.createId();
     trip.tripId = id;
-    if (typeof trip.userId === 'undefined') {
-      trip.userId = null;
-    }
-    return this.tripCollection.doc(id).set(Object.assign({}, trip));
+    return this.tripCollection.doc(id).set(Object.assign({}, trip)).then(() => {
+      return id;
+    });
   }
 
   updateTrip(id: string, trip: Trip) {
