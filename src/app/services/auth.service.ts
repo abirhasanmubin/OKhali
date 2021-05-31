@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
-import { throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
 import { User } from "../models/user.model";
 import { UserService } from "./user.service";
 
@@ -17,9 +16,11 @@ export interface AuthResponseData {
 }
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService implements OnInit {
 
-  isLoggedin: boolean = false;
+  userData: any;
+
+  isauthenticated: boolean = false;
 
   signupUrl: string
     = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCYroLcNUSv3PihR38oy6jk584qb3E8cMo'
@@ -27,69 +28,75 @@ export class AuthService {
   signinUrl: string
     = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCYroLcNUSv3PihR38oy6jk584qb3E8cMo'
 
+  userCollection: AngularFirestoreCollection<any>;
+
   constructor(
-    private http: HttpClient,
     private userService: UserService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private fireAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
+
+  ) {
+    this.userCollection = this.firestore.collection<any>('users');
+    this.fireAuth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+      }
+      else {
+        localStorage.setItem('user', null);
+      }
+    })
+  }
+
+  ngOnInit() {
+  }
 
   signup(user: User, password: string) {
-    return this.http.post<AuthResponseData>(this.signupUrl, {
-      email: user.userEmail,
-      password: password,
-      returnSecureToken: true
-    }).pipe(catchError(this.handleError),
-      tap(responseData => {
-        const expirationDate = new Date(new Date().getTime() + +responseData.expiresIn * 1000);
-        user.token = responseData.idToken;
-        user.tokenExpired = expirationDate;
-        user.userId = responseData.localId;
-        this.userService.addUser(Object.assign({}, user));
-        this.router.navigate(['/login']);
-      }))
+    return this.fireAuth.createUserWithEmailAndPassword(user.userEmail, password)
+      .then(result => {
+        this.setUserData(Object.assign({}, result.user));
+        this.router.navigate(['login']);
+      })
+      .catch(error => {
+        window.alert(error.message);
+      })
   }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponseData>(this.signinUrl, {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }).pipe(catchError(this.handleError),
-      tap(responseData => {
-        localStorage.setItem("loginData", JSON.stringify(responseData));
-        this.isLoggedin = true;
-        this.router.navigate(['/trips']);
-      }));
+    return this.fireAuth.signInWithEmailAndPassword(email, password)
+      .then(result => {
+        this.isauthenticated = true;
+        this.router.navigate(['trips']);
+        this.setUserData(Object.assign({}, result.user))
+      })
+      .catch(error => {
+        console.log(error);;
+
+      })
+  }
+
+  setUserData(user) {
+    return this.userCollection.doc(user.uid).set(Object.assign({}, user), {
+      merge: true
+    })
   }
 
 
   logout() {
-    this.isLoggedin = false;
-    localStorage.removeItem("loginData");
+    this.isauthenticated = false;
+    return this.fireAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['login']);
+    })
   }
 
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = "An unknown error occurred!";
-    if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage)
-    }
-    switch (errorRes.error.error.message) {
-      case 'INVALID_EMAIL':
-        errorMessage = "The email address is invalid";
-        break;
-      case 'EMAIL_EXISTS':
-        errorMessage = "The email address is already in use by another account.";
-        break;
-      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-        errorMessage = 'We have blocked all requests from this device due to unusual activity. Try again later.';
-        break;
-      case 'EMAIL_NOT_FOUND':
-      case 'INVALID_PASSWORD':
-        errorMessage = 'The Email or Password is incorrect.'
-        break;
-    }
-    return throwError(errorMessage);
+  // Returns true when user is looged in and email is verified
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null && this.isauthenticated) ? true : false;
   }
+
 
 }
 

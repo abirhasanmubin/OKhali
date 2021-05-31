@@ -31,13 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       let email = this.loginForm.value['email'];
       let password = this.loginForm.value['password'];
-      this.loginSub = this.authService.login(email, password).subscribe();
+      this.authService.login(email, password);
     }
     this.loginForm.reset();
   }
 
   ngOnDestroy() {
-    this.loginSub.unsubscribe();
   }
 
 }

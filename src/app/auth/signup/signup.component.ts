@@ -44,13 +44,12 @@ export class SignupComponent implements OnInit, OnDestroy {
 
       let tempUser = new User(name, email, contact, isDriver);
 
-      this.signUpSub = this.authService.signup(tempUser, password).subscribe();
+      this.authService.signup(tempUser, password);
       this.signUpForm.reset();
     }
   }
 
   ngOnDestroy() {
-    this.signUpSub.unsubscribe();
   }
 
 }

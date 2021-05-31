@@ -1,10 +1,12 @@
 // import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-// import { Injectable, OnDestroy } from "@angular/core";
+// import { Injectable } from "@angular/core";
+// import { AngularFireAuth } from "@angular/fire/auth";
 // import { Router } from "@angular/router";
-// import { Subject, Subscription, throwError } from "rxjs";
+// import { throwError } from "rxjs";
 // import { catchError, tap } from "rxjs/operators";
 // import { User } from "../models/user.model";
 // import { UserService } from "./user.service";
+
 
 // export interface AuthResponseData {
 //   idToken: string;
@@ -14,11 +16,13 @@
 //   localId: string;
 //   registered?: boolean;
 // }
-// @Injectable({ providedIn: 'root' })
-// export class AuthService implements OnDestroy {
 
-//   user = new Subject<User>();
-//   userSubscription: Subscription;
+// @Injectable({ providedIn: 'root' })
+// export class AuthService {
+
+//   isLoggedin: boolean = false;
+
+//   userData: any;
 
 //   signupUrl: string
 //     = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCYroLcNUSv3PihR38oy6jk584qb3E8cMo'
@@ -26,78 +30,59 @@
 //   signinUrl: string
 //     = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCYroLcNUSv3PihR38oy6jk584qb3E8cMo'
 
-
 //   constructor(
 //     private http: HttpClient,
 //     private userService: UserService,
-//     private router: Router
-//   ) { }
+//     private router: Router,
+//     private fireAuth: AngularFireAuth,
+//   ) {
+//     this.fireAuth.authState.subscribe(user => {
+//       if (user) {
+//         this.userData = user;
+//         localStorage.setItem('user', JSON.stringify(this.userData));
+//       }
+//       else {
+//         localStorage.setItem('user', null);
+//       }
+//     })
+//   }
 
-//   signup(email: string, password: string, name: string,
-//     contact: string, isDriver: boolean) {
+//   signup(user: User, password: string) {
 //     return this.http.post<AuthResponseData>(this.signupUrl, {
-//       email: email,
+//       email: user.userEmail,
 //       password: password,
 //       returnSecureToken: true
 //     }).pipe(catchError(this.handleError),
 //       tap(responseData => {
-
-//         this.handleSignUp(
-//           responseData.email,
-//           responseData.localId,
-//           responseData.idToken,
-//           +responseData.expiresIn,
-//           name,
-//           contact,
-//           isDriver
-//         )
-//       }));
+//         const expirationDate = new Date(new Date().getTime() + +responseData.expiresIn * 1000);
+//         user.token = responseData.idToken;
+//         user.tokenExpired = expirationDate;
+//         user.userId = responseData.localId;
+//         this.userService.addUser(Object.assign({}, user));
+//         this.router.navigate(['/login']);
+//       }))
 //   }
 
 //   login(email: string, password: string) {
-//     return this.http.post<AuthResponseData>(this.signinUrl, {
-//       email: email,
-//       password: password,
-//       returnSecureToken: true
-//     }).pipe(catchError(this.handleError),
-//       tap(responseData => {
-//         this.handleAuthentication(
-//           responseData.email,
-//           responseData.localId,
-//           responseData.idToken,
-//           +responseData.expiresIn,
-//         )
-//       }));
+//     return this.fireAuth.signInWithEmailAndPassword(email, password)
+//       .then(result => {
+//         this.router.navigate(['/trips']);
+//         this.setUserData(result.user)
+//       })
+//       .catch(error => {
+//         console.log(error);;
+
+//       })
 //   }
 
-//   private handleSignUp(email: string, userId: string, token: string, expiresIn: number,
-//     name: string, contact: string, isDriver: boolean) {
-//     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-//     let tempUser: User;
-
-//     tempUser = new User(
-//       userId,
-//       name,
-//       email,
-//       contact,
-//       isDriver,
-//       token,
-//       expirationDate,
-//     );
-
-//     this.userService.addUser(tempUser);
-//     this.router.navigate(['/login']);
-
+//   setUserData(user) {
+//     const userRef = AngularFireAuth
 //   }
 
-//   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-//     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-//     let tempUser: User;
-//     let userSubscription = this.userService.getUser(userId).subscribe(data => {
-//       tempUser = data;
-//     });
-//     console.log(tempUser);
-//     this.user.next(tempUser);
+
+//   logout() {
+//     this.isLoggedin = false;
+//     localStorage.removeItem("loginData");
 //   }
 
 //   private handleError(errorRes: HttpErrorResponse) {
@@ -123,7 +108,7 @@
 //     return throwError(errorMessage);
 //   }
 
-//   ngOnDestroy() {
-//     this.userSubscription.unsubscribe();
-//   }
 // }
+
+
+

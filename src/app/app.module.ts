@@ -60,7 +60,7 @@ import { environment } from 'src/environments/environment.prod';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
 
   ],
   providers: [],
