@@ -14,9 +14,9 @@ export class UserService {
   userCollection: AngularFirestoreCollection<User>;
 
   constructor(
-    public firestore: AngularFirestore,
+    private firestore: AngularFirestore,
   ) {
-    this.userCollection = firestore.collection<User>('users');
+    this.userCollection = this.firestore.collection<User>('users');
   }
 
   getUser(id: string) {
