@@ -55,7 +55,7 @@ export class AuthService implements OnInit {
   signup(user: User, password: string) {
     return this.fireAuth.createUserWithEmailAndPassword(user.userEmail, password)
       .then(result => {
-        this.setUserData(Object.assign({}, result.user));
+        this.setUserData(result.user.uid, user);
         this.router.navigate(['login']);
       })
       .catch(error => {
@@ -68,7 +68,7 @@ export class AuthService implements OnInit {
       .then(result => {
         this.isauthenticated = true;
         this.router.navigate(['trips']);
-        this.setUserData(Object.assign({}, result.user))
+        // this.setUserData()
       })
       .catch(error => {
         console.log(error);;
@@ -76,8 +76,17 @@ export class AuthService implements OnInit {
       })
   }
 
-  setUserData(user) {
-    return this.userCollection.doc(user.uid).set(Object.assign({}, user), {
+  setUserData(userRef: string, user: User) {
+
+    let tempUser = new User(
+      user.userFullName,
+      user.userEmail,
+      user.userContactNo,
+      user.isVehicleOwner,
+      userRef,
+      null, null, null
+    )
+    return this.userCollection.doc(user.userId).set(Object.assign({}, tempUser), {
       merge: true
     })
   }
