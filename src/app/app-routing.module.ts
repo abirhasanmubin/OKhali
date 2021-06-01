@@ -34,11 +34,12 @@ const routes: Routes = [
     path: "profile", component: ProfileComponent, canActivate: [AuthGuardService], children: [
       { path: "detail", component: ProfileDetailComponent },
       { path: "edit", component: ProfileEditComponent },
+      { path: "", redirectTo: "/profile/detail", pathMatch: "full" },
       {
         path: "vehicle", component: VehicleComponent, children: [
-          { path: "", component: VehicleDetailComponent },
           { path: "new", component: VehicleEditComponent },
           { path: ":id", component: VehicleEditComponent },
+          { path: "", component: VehicleDetailComponent },
         ]
       },
     ]
