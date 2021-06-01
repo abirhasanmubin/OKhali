@@ -20,7 +20,6 @@ export class AuthService implements OnInit {
 
   userData: any;
 
-  isauthenticated: boolean = false;
 
   signupUrl: string
     = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCYroLcNUSv3PihR38oy6jk584qb3E8cMo'
@@ -41,16 +40,18 @@ export class AuthService implements OnInit {
     this.fireAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('userAuthInfo', JSON.stringify(this.userData));
       }
       else {
-        localStorage.setItem('user', null);
+        localStorage.setItem('userAuthInfo', null);
       }
     })
   }
 
   ngOnInit() {
+
   }
+
 
   signup(user: User, password: string) {
     return this.fireAuth.createUserWithEmailAndPassword(user.userEmail, password)
@@ -66,48 +67,59 @@ export class AuthService implements OnInit {
   login(email: string, password: string) {
     return this.fireAuth.signInWithEmailAndPassword(email, password)
       .then(result => {
-        this.isauthenticated = true;
+        this.userService.getUser(result.user.uid).subscribe(data => {
+          localStorage.setItem('userData', JSON.stringify(data));
+        })
+        localStorage.setItem("isAuthenticated", "true");
         this.router.navigate(['trips']);
         // this.setUserData()
       })
       .catch(error => {
         console.log(error);;
-
       })
   }
 
-  setUserData(userRef: string, user: User) {
+  setUserData(userId: string, user: User) {
 
     let tempUser = new User(
       user.userFullName,
       user.userEmail,
       user.userContactNo,
       user.isVehicleOwner,
-      userRef,
+      userId,
       null, null, null
     )
-    return this.userCollection.doc(user.userId).set(Object.assign({}, tempUser), {
+    console.log(tempUser);
+
+    return this.userCollection.doc(userId).set(Object.assign({}, tempUser), {
       merge: true
     })
   }
 
 
+
+
   logout() {
-    this.isauthenticated = false;
+    localStorage.setItem("isAuthenticated", "false");
     return this.fireAuth.signOut().then(() => {
-      localStorage.removeItem('user');
+      localStorage.removeItem('userAuthInfo');
+      localStorage.removeItem('userData');
       this.router.navigate(['login']);
     })
   }
 
   // Returns true when user is looged in and email is verified
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && this.isauthenticated) ? true : false;
+  // get isLoggedIn(): boolean {
+  //   const userAuthInfo = JSON.parse(localStorage.getItem('userAuthInfo'));
+  //   return (userAuthInfo !== null && this.isAuthenticated) ? true : false;
+  // }
+
+  get isAuthenticated() {
+    return <boolean>JSON.parse(localStorage.getItem("isAuthenticated"));
   }
 
-
 }
+
 
 
 

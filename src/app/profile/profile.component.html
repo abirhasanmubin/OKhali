@@ -1,1 +1,17 @@
-<p>Profile Works</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <ul class="list-group">
+        <li class="list-item" [routerLink]="['/profile','detail']" routerLinkActive="router-link-active">
+          Profile
+        </li>
+        <li class="list-item" [routerLink]="['/profile','vehicle']" routerLinkActive="router-link-active">
+          Vehicle
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
