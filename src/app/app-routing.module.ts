@@ -6,9 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileComponent } from './profile/profile.component';
-import { VehicleDetailComponent } from './profile/profile/vehicle/vehicle-detail/vehicle-detail.component';
-import { VehicleEditComponent } from './profile/profile/vehicle/vehicle-edit/vehicle-edit.component';
-import { VehicleComponent } from './profile/profile/vehicle/vehicle.component';
+import { VehicleDetailComponent } from './profile/vehicle/vehicle-detail/vehicle-detail.component';
+import { VehicleEditComponent } from './profile/vehicle/vehicle-edit/vehicle-edit.component';
+import { VehicleComponent } from './profile/vehicle/vehicle.component';
+import { AuthGuardService } from './services/auth-guard.service';
 import { TripDetailComponent } from './trips/trip-detail/trip-detail.component';
 import { TripEditComponent } from './trips/trip-edit/trip-edit.component';
 import { TripListComponent } from './trips/trip-list/trip-list.component';
@@ -21,21 +22,23 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   {
-    path: "trips", component: TripsComponent, children: [
-      { path: "", component: TripListComponent },
+    path: "trips", component: TripsComponent, canActivate: [AuthGuardService], children: [
+      { path: "", component: TripStartComponent },
+      { path: "new", component: TripEditComponent },
       { path: ":id", component: TripDetailComponent },
       { path: ":id/edit", component: TripEditComponent },
       { path: "id/delete", component: TripEditComponent },
     ]
   },
   {
-    path: "profile", component: ProfileComponent, children: [
-      { path: "", component: ProfileDetailComponent },
+    path: "profile", component: ProfileComponent, canActivate: [AuthGuardService], children: [
+      { path: "detail", component: ProfileDetailComponent },
       { path: "edit", component: ProfileEditComponent },
       {
         path: "vehicle", component: VehicleComponent, children: [
           { path: "", component: VehicleDetailComponent },
-          { path: "edit", component: VehicleEditComponent },
+          { path: "new", component: VehicleEditComponent },
+          { path: ":id", component: VehicleEditComponent },
         ]
       },
     ]
