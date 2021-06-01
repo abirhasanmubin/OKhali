@@ -20,6 +20,11 @@ export class TripListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tripSub = this.tripService.getTrips().subscribe(data => {
       this.trips = data;
+      this.trips.sort((tripA: Trip, tripB: Trip) => {
+        if (tripA.tripDate < tripB.tripDate) return 1;
+        else if (tripA.tripDate > tripB.tripDate) return -1;
+        else return 0;
+      });
     })
   }
 

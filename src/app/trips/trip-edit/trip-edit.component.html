@@ -1,23 +1,19 @@
-<main class="form-signin">
-  <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
-    <h1 class="h3 mb-3 fw-normal">Trip Form</h1>
-    <div class="form-floating">
-      <input type="text" class="form-control" id="from" placeholder="Location" formControlName="from">
-      <label for="from">From</label>
-    </div>
-    <div class="form-floating">
-      <input type="text" class="form-control" id="to" placeholder="Destination" formControlName="to">
-      <label for="to">To</label>
-    </div>
-    <div class="form-floating">
-      <input type="date" class="form-control" id="date" formControlName="date">
-      <label for="date">Date</label>
-    </div>
-    <br>
-    <button [disabled]="" class="w-100 btn btn-lg btn-primary" type="submit">
-      Add Trip
-    </button>
-  </form>
-  <hr>
-
-</main>
+<form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
+  <h1 class="h3 mb-3 fw-normal">Trip Form</h1>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="from" placeholder="Location" formControlName="from">
+    <label for="from">From</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="to" placeholder="Destination" formControlName="to">
+    <label for="to">To</label>
+  </div>
+  <div class="form-floating">
+    <input type="date" class="form-control" id="date" formControlName="date">
+    <label for="date">Date</label>
+  </div>
+  <br>
+  <button [disabled]="" class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!tripForm.valid">
+    {{!editMode? "Add Trip": "Update Trip"}}
+  </button>
+</form>

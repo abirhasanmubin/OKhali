@@ -1,19 +1,8 @@
 <div class="card" [routerLink]="['/trips',trip.tripId]" routerLinkActive="router-link-active" style="cursor: pointer;">
   <div class="card-body">
-    <h5 class="card-title">From : <strong>{{trip.tripFrom}}</strong> </h5>
-    <h5 class="card-titile">To : <strong>{{trip.tripTo}}</strong> </h5>
-    <h6 class="card-subtitle mb-2">Date: {{trip.tripDate.toDate() | date }}</h6>
-    <h6 class="card-subtitle mb-2">Status: {{trip.tripStatus}}</h6>
+    <h6 class="card-title">From : <strong>{{trip.tripFrom}}</strong> </h6>
+    <h6 class="card-titile">To : <strong>{{trip.tripTo}}</strong> </h6>
+    <p class="card-subtitle mb-2">Date: {{trip.tripDate.toDate() | date }}</p>
+    <p class="card-subtitle mb-2">Status: {{trip.tripStatus}}</p>
   </div>
 </div>
-
-<!-- <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-    </p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div> -->

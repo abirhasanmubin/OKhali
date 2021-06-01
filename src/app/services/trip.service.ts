@@ -25,7 +25,7 @@ export class TripService {
           const data = a.payload.doc.data() as Trip;
           return data;
         })
-      }))
+      }));
   }
 
   getTrips() {

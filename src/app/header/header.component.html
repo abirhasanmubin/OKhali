@@ -1,10 +1,11 @@
 <nav class="navbar navbar-expand-md navbar-light bg-teal">
   <div class="container-fluid">
     <a [routerLink]="['/']" routerLinkActive="router-link-active" class="navbar-brand">O-Khali</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent"
+      (click)="isShown=!isShown">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navContent">
+    <div class="collapse navbar-collapse" id="navContent" [ngClass]="{ 'show': isShown }">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a [routerLink]="['/']" routerLinkActive="router-link-active" class="nav-link">Home</a>
