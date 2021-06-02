@@ -29,12 +29,18 @@ export class VehicleEditComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Params) => {
       this.vehicleId = params['id'];
       this.isEditMode = params['id'] != null;
-      this.initForm();
+      if (this.isEditMode) {
+        this.vehicleSub = this.vehicleService.getVehicle(this.vehicleId)
+          .subscribe(data => {
+            this.vehicle = data;
+            this.initForm();
+          });
+      }
+      else {
+        this.initForm();
+      }
+
     })
-    this.vehicleSub = this.vehicleService.getVehicle(this.vehicleId)
-      .subscribe(data => {
-        this.vehicle = data;
-      });
   }
 
   initForm() {
@@ -63,13 +69,29 @@ export class VehicleEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    let newVehicle = new Vehicle(
-      this.vehicleForm.value['vehicleName'],
-      this.vehicleForm.value['vehicleCompany'],
-      this.vehicleForm.value['vehicleType'],
-      this.vehicleForm.value['noOfSeats'],
-    )
-    this.vehicleService.addVehicle(newVehicle);
+    let name = this.vehicleForm.value['vehicleName'];
+    let company = this.vehicleForm.value['vehicleCompany'];
+    let type = this.vehicleForm.value['vehicleType'];
+    let seats = this.vehicleForm.value['noOfSeats'];
+    if (!this.isEditMode) {
+      let newVehicle = new Vehicle(
+        name,
+        company,
+        type,
+        seats
+      )
+      this.vehicleService.addVehicle(newVehicle).then(res => {
+        this.vehicleId = res;
+      })
+    }
+    else {
+      this.vehicle.vehicleName = name;
+      this.vehicle.vehicleCompany = company;
+      this.vehicle.vehicleType = type;
+      this.vehicle.noOfSeats = seats;
+      this.vehicleService.updateVehicle(this.vehicleId, this.vehicle);
+    }
+    this.router.navigate(['/profile', 'vehicle', this.vehicleId]);
     this.vehicleForm.reset();
   }
 

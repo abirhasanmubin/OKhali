@@ -38,8 +38,8 @@ const routes: Routes = [
       {
         path: "vehicle", component: VehicleComponent, children: [
           { path: "new", component: VehicleEditComponent },
-          { path: ":id", component: VehicleEditComponent },
-          { path: "", component: VehicleDetailComponent },
+          { path: ":id", component: VehicleDetailComponent },
+          { path: ":id/edit", component: VehicleEditComponent },
         ]
       },
     ]

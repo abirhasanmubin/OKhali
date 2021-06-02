@@ -1,1 +1,35 @@
-<p>vehicle details works</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <button *ngIf="!vehicle" [routerLink]="['/profile','vehicle','new']" routerLinkActive="router-link-active"
+        class="btn btn-primary}}">
+        Add Vehicle
+      </button>
+      <button *ngIf="vehicle" [routerLink]="['/profile','vehicle',vehicle?.vehicleId,'edit']"
+        routerLinkActive="router-link-active" class="btn btn-warning">
+        Edit Vehicle
+      </button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <div class="card-subtitle">
+            <p>Name: <strong>{{vehicle?.vehicleName}}</strong></p>
+          </div>
+          <div class="card-title">
+            <p>Manufacturer: <strong>{{vehicle?.vehicleCompany}}</strong></p>
+          </div>
+          <div class="card-subtitle">
+            <p>Vehicle Type: <strong>{{vehicle?.vehicleType}}</strong></p>
+          </div>
+          <div class="card-subtitle">
+            <p>No. of Seats: <strong>{{vehicle?.noOfSeats}}</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

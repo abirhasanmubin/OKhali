@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-sm-3">
       <ul class="list-group">
-        <li class="list-group-item" [routerLink]="['/profile','detail']" routerLinkActive="router-link-active"
-          style="cursor: pointer;">
+        <li class="list-group-item" *ngIf="vehicleId" [routerLink]="['/profile','detail']"
+          routerLinkActive="router-link-active" style="cursor: pointer;">
           Profile
         </li>
-        <li *ngIf="isDriver" class="list-group-item" [routerLink]="['/profile','vehicle']"
+        <li *ngIf="isDriver" class="list-group-item" [routerLink]="['/profile','vehicle',vehicleId]"
           routerLinkActive="router-link-active" style="cursor: pointer;">
           Vehicle
         </li>
