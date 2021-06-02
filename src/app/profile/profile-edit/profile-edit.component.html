@@ -1,1 +1,15 @@
-<p>profile-edit works!</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <h1 class="h3 mb-3 fw-normal">Profile Form</h1>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="name" formControlName="name">
+    <label for="from">name</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="contact" placeholder="Destination" formControlName="contact">
+    <label for="contact">contact</label>
+  </div>
+  <br>
+  <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!profileForm.valid">
+    Update Profile
+  </button>
+</form>
