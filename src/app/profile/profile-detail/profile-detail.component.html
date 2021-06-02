@@ -1,16 +1,56 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      {{user.userId}}
-    </div>
-    <div class="col-md-12">
-      {{user.userFullName}}
-    </div>
-    <div class="col-md-12">
-      {{user.userEmail}}
-    </div>
-    <div class="col-md-12">
-      {{user.userContactNo}}
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <div class="card-title">
+            <p>
+              Name:
+              <strong>
+                {{user?.userFullName}}
+              </strong>
+            </p>
+          </div>
+          <div class="card-subtitle">
+            <p>
+              Email:
+              <strong>
+                {{user?.userEmail}}
+              </strong>
+            </p>
+          </div>
+          <div class="card-subtitle">
+            <p>
+              Contact No.:
+              <strong>
+                {{user?.userContactNo}}
+              </strong>
+            </p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>
+            Review:
+            <strong>
+              {{(user?.userReview/user?.userReviewedBy) | number:'1.1-2'}}
+            </strong>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
+  <!-- <div class="row">
+    <div class="col-md-12">
+      {{user?.userId}}
+    </div>
+    <div class="col-md-12">
+      {{user?.userFullName}}
+    </div>
+    <div class="col-md-12">
+      {{user?.userEmail}}
+    </div>
+    <div class="col-md-12">
+      {{user?.userContactNo}}
+    </div>
+  </div> -->
 </div>

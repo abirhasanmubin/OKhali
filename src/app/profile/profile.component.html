@@ -6,8 +6,8 @@
           style="cursor: pointer;">
           Profile
         </li>
-        <li class="list-group-item" [routerLink]="['/profile','vehicle']" routerLinkActive="router-link-active"
-          style="cursor: pointer;">
+        <li *ngIf="isDriver" class="list-group-item" [routerLink]="['/profile','vehicle']"
+          routerLinkActive="router-link-active" style="cursor: pointer;">
           Vehicle
         </li>
       </ul>

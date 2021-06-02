@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  isDriver: boolean;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.isDriver = JSON.parse(localStorage.getItem('userData')).isVehicleOwner;
   }
 
 }
