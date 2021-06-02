@@ -1,4 +1,4 @@
-<form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
+<form *ngIf="tripForm" [formGroup]="tripForm" (ngSubmit)="onSubmit()">
   <h1 class="h3 mb-3 fw-normal">Trip Form</h1>
   <div class="form-floating">
     <input type="text" class="form-control" id="from" placeholder="Location" formControlName="from">

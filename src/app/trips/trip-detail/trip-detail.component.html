@@ -12,16 +12,16 @@
   <hr>
   <div class="row">
     <div class="col-md-6">
-      <h4>From: <strong>{{trip.tripFrom}}</strong></h4>
+      <h4>From: <strong>{{trip?.tripFrom}}</strong></h4>
     </div>
     <div class="col-md-6">
-      <h4>To: <strong>{{trip.tripTo}}</strong></h4>
+      <h4>To: <strong>{{trip?.tripTo}}</strong></h4>
     </div>
     <div class="col-md-6">
-      <h6>Date: <strong>{{trip.tripDate.toDate()|date}}</strong></h6>
+      <h6>Date: <strong>{{trip?.tripDate.toDate()|date}}</strong></h6>
     </div>
     <div class="col-md-6">
-      <h6>Status: {{trip.tripStatus}}</h6>
+      <h6>Status: {{trip?.tripStatus}}</h6>
     </div>
   </div>
 </div>
