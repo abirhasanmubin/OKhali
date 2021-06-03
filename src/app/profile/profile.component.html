@@ -1,1 +1,19 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <ul class="list-group">
+        <li class="list-group-item" [routerLink]="['/profile','detail']" routerLinkActive="router-link-active"
+          style="cursor: pointer;">
+          Profile
+        </li>
+        <li *ngIf="isDriver && vehicleId" class="list-group-item" [routerLink]="['/profile','vehicle',vehicleId]"
+          routerLinkActive="router-link-active" style="cursor: pointer;">
+          Vehicle
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

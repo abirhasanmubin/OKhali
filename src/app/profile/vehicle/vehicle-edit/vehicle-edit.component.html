@@ -1,0 +1,24 @@
+<form *ngIf="vehicleForm" [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+  <h1 class="h3 mb-3 fw-normal">Vehicle Form</h1>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="name" formControlName="vehicleName">
+    <label for="from">Vehicle Title</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="vehicleCompany" placeholder="Destination"
+      formControlName="vehicleCompany">
+    <label for="vehicleCompany">Vehicle Company</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="vehicleType" placeholder="Destination" formControlName="vehicleType">
+    <label for="vehicleType">Vehicle Type</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="noOfSeats" placeholder="Destination" formControlName="noOfSeats">
+    <label for="noOfSeats">No. of Seats</label>
+  </div>
+  <br>
+  <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!vehicleForm.valid">
+    Update Vehicle
+  </button>
+</form>

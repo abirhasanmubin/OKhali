@@ -1,1 +1,36 @@
-<p>profile-detail works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mr-auto">
+      <button [routerLink]="['/profile','edit']" routerLinkActive="router-link-active" class="btn btn-warning">
+        Edit Profile
+      </button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <div class="card-title">
+            <p>Name: <strong>{{user?.userFullName}}</strong></p>
+          </div>
+          <div class="card-subtitle">
+            <p>Email: <strong>{{user?.userEmail}}</strong></p>
+          </div>
+          <div class="card-subtitle">
+            <p>Contact No.:
+              <strong> {{user?.userContactNo}}</strong>
+            </p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>Review:
+            <strong>
+              {{(user?.userReview/user?.userReviewedBy) | number:'1.1-2'}}
+            </strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-guide-84051": {
+      "hosting": {
+        "OKhali": [
+          "angular-guide-84051"
+        ]
+      }
+    }
+  }
+}
