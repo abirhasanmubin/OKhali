@@ -1,1 +1,23 @@
-ride-edit works
+<form *ngIf="rideForm" [formGroup]="rideForm" (ngSubmit)="onSubmit()">
+  <h1 class="h3 mb-3 fw-normal">Ride Form</h1>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="from" placeholder="Location" formControlName="from">
+    <label for="from">From</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="to" placeholder="Destination" formControlName="to">
+    <label for="to">To</label>
+  </div>
+  <div class="form-floating">
+    <input type="datetime-local" class="form-control" id="start" formControlName="start">
+    <label for="start">Start Time</label>
+  </div>
+  <div class="form-floating">
+    <input type="datetime-local" class="form-control" id="end" formControlName="end">
+    <label for="end">End Time</label>
+  </div>
+  <br>
+  <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!rideForm.valid">
+    {{!editMode? "Add Ride": "Update Ride"}}
+  </button>
+</form>

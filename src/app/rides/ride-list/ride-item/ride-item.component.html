@@ -1,1 +1,7 @@
-{{ride?.rideId}}
+<div class="card" [routerLink]="['/rides',ride?.rideId]" routerLinkActive="router-link-active" style="cursor: pointer;">
+  <div class="card-body">
+    <h6 class="card-title">From : <strong>{{ride?.rideFrom}}</strong> </h6>
+    <h6 class="card-title">To: <strong>{{ride?.rideTo}}</strong> </h6>
+    <p class="card-subtitle">Start: {{ride?.startTime.toDate() | date }}</p>
+  </div>
+</div>

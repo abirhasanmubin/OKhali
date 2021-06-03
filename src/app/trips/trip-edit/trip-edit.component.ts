@@ -64,7 +64,6 @@ export class TripEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.tripForm.valid) {
-
       let from = this.tripForm.value['from'];
       let to = this.tripForm.value['to'];
       let date = new Date(this.tripForm.value['date']);
@@ -91,7 +90,8 @@ export class TripEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.tripSub.unsubscribe();
+    if (this.editMode) {
+      this.tripSub.unsubscribe();
+    }
   }
-
 }
