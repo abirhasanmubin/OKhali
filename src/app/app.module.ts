@@ -28,6 +28,11 @@ import { TripStartComponent } from './trips/trip-start/trip-start.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
+import { RidesComponent } from './rides/rides.component';
+import { RideListComponent } from './rides/ride-list/ride-list.component';
+import { RideEditComponent } from './rides/ride-edit/ride-edit.component';
+import { RideDetailComponent } from './rides/ride-detail/ride-detail.component';
+import { RideItemComponent } from './rides/ride-list/ride-item/ride-item.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +53,12 @@ import { environment } from 'src/environments/environment.prod';
     VehicleEditComponent,
     LoginComponent,
     SignupComponent,
-    TripStartComponent
+    TripStartComponent,
+    RidesComponent,
+    RideListComponent,
+    RideEditComponent,
+    RideDetailComponent,
+    RideItemComponent
   ],
   imports: [
 

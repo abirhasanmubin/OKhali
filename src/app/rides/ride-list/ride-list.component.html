@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button [routerLink]="['/rides','new']" routerLinkActive="router-link-active" class="btn btn-success">
+      New Ride
+    </button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <app-ride-item *ngFor="let ride of rides" [ride]="ride"></app-ride-item>
+    </ul>
+  </div>
+</div>

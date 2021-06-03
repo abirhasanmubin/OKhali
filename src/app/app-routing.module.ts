@@ -9,6 +9,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { VehicleDetailComponent } from './profile/vehicle/vehicle-detail/vehicle-detail.component';
 import { VehicleEditComponent } from './profile/vehicle/vehicle-edit/vehicle-edit.component';
 import { VehicleComponent } from './profile/vehicle/vehicle.component';
+import { RideDetailComponent } from './rides/ride-detail/ride-detail.component';
+import { RideEditComponent } from './rides/ride-edit/ride-edit.component';
+import { RidesComponent } from './rides/rides.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { TripDetailComponent } from './trips/trip-detail/trip-detail.component';
 import { TripEditComponent } from './trips/trip-edit/trip-edit.component';
@@ -28,6 +31,13 @@ const routes: Routes = [
       { path: ":id", component: TripDetailComponent },
       { path: ":id/edit", component: TripEditComponent },
       { path: "id/delete", component: TripEditComponent },
+    ]
+  },
+  {
+    path: "rides", component: RidesComponent, canActivate: [AuthGuardService], children: [
+      { path: "new", component: RideEditComponent },
+      { path: ":id", component: RideDetailComponent },
+      { path: ":id/edit", component: RideEditComponent },
     ]
   },
   {
