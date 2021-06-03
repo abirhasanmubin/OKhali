@@ -8,12 +8,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isShown: boolean = false;
+  // isAuthenticated: boolean;
 
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    // this.isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
   }
 
   onClick() {
