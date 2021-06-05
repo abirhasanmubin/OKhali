@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Trip } from 'src/app/models/trips.model';
+import { User } from 'src/app/models/user.model';
 import { TripService } from 'src/app/services/trip.service';
 
 
@@ -15,6 +16,7 @@ export class TripDetailComponent implements OnInit, OnDestroy {
   id: string;
   trip: Trip;
   tripSub: Subscription;
+  user: User;
   constructor(
     private tripService: TripService,
     private route: ActivatedRoute,
@@ -23,6 +25,7 @@ export class TripDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('userData'));
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.tripSub = this.tripService.getTrip(this.id).subscribe(data => {

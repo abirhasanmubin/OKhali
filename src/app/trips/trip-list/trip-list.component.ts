@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Trip } from 'src/app/models/trips.model';
+import { User } from 'src/app/models/user.model';
 import { TripService } from 'src/app/services/trip.service';
 
 @Component({
@@ -11,7 +13,9 @@ import { TripService } from 'src/app/services/trip.service';
 export class TripListComponent implements OnInit, OnDestroy {
 
   trips: Trip[];
-  tripSub: Subscription
+  tripSub: Subscription;
+  user: User;
+  searchForm: FormGroup;
 
   constructor(
     private tripService: TripService,
@@ -25,6 +29,11 @@ export class TripListComponent implements OnInit, OnDestroy {
         else if (tripA.tripDate > tripB.tripDate) return -1;
         else return 0;
       });
+    })
+    this.user = JSON.parse(localStorage.getItem('userData'));
+    this.searchForm = new FormGroup({
+      'from': new FormControl(null),
+      'to': new FormControl(null)
     })
   }
 

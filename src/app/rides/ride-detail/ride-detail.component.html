@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="user.userId===ride.rider">
     <div class="col-xs-12">
       <button [routerLink]="['/rides',id,'edit']" routerLinkActive="router-link-active" class="btn btn-warning">
         Edit Ride
@@ -23,6 +23,7 @@
     <div class="col-md-6">
       <h6>End: <strong>{{ride?.endTime.toDate()|date:"MMM dd, yyyy hh:mm aa"}}</strong></h6>
     </div>
+
     <div class="col-md-6">
       <h6>Status: <strong>{{ride?.rideStatus | uppercase}}</strong></h6>
     </div>

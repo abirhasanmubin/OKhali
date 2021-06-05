@@ -1,6 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12" *ngIf="user?.isVehicleOwner">
+      <button class="btn btn-primary">
+        Request Trip
+      </button>
+    </div>
+    <div class="col-xs-12" *ngIf="user?.userId === trip?.userId">
       <button [routerLink]="['/trips',id,'edit']" routerLinkActive="router-link-active" class="btn btn-warning">
         Edit Trip
       </button>
@@ -22,6 +27,17 @@
     </div>
     <div class="col-md-6">
       <h6>Status: <strong>{{trip?.tripStatus | uppercase}}</strong></h6>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="user?.userId===trip?.userId">
+    <div class="col-xs-12">
+      <button class="btn btn-primary">
+        Approve Rider
+      </button>
+    </div>
+    <div class="col-xs-12">
+      Rider Info
     </div>
   </div>
 </div>

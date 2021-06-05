@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Ride } from 'src/app/models/ride.model';
+import { User } from 'src/app/models/user.model';
 import { RideService } from 'src/app/services/ride.service';
 
 @Component({
@@ -17,12 +18,14 @@ export class RideEditComponent implements OnInit, OnDestroy {
   editMode: boolean;
   ride: Ride;
   rideSub: Subscription;
+  user: User;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private rideService: RideService,
   ) {
+    this.user = JSON.parse(localStorage.getItem('userData'));
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.editMode = params['id'] != null;
@@ -78,7 +81,7 @@ export class RideEditComponent implements OnInit, OnDestroy {
     if (this.rideForm.valid) {
       if (!this.editMode) {
         let tempRide: Ride;
-        tempRide = new Ride(from, to, start, end, "created", null, null, null);
+        tempRide = new Ride(from, to, start, end, "created", this.user.userId, null, null);
         this.rideService.addRide(tempRide).then(responseData => {
           this.router.navigate(['/rides', responseData])
         })
