@@ -22,15 +22,29 @@ export class TripListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.tripSub = this.tripService.getTrips().subscribe(data => {
-      this.trips = data;
-      this.trips.sort((tripA: Trip, tripB: Trip) => {
-        if (tripA.tripDate < tripB.tripDate) return 1;
-        else if (tripA.tripDate > tripB.tripDate) return -1;
-        else return 0;
-      });
-    })
     this.user = JSON.parse(localStorage.getItem('userData'));
+    if (this.user?.isVehicleOwner) {
+      this.tripSub = this.tripService.getTrips().subscribe(data => {
+        this.trips = data;
+        this.trips.sort((tripA: Trip, tripB: Trip) => {
+          if (tripA.tripDate < tripB.tripDate) return 1;
+          else if (tripA.tripDate > tripB.tripDate) return -1;
+          else return 0;
+        });
+      })
+    }
+    else {
+      this.tripSub = this.tripService.getUserTrips(this.user?.userId)
+        .subscribe(data => {
+          this.trips = data;
+          this.trips.sort((tripA: Trip, tripB: Trip) => {
+            if (tripA.tripDate < tripB.tripDate) return 1;
+            else if (tripA.tripDate > tripB.tripDate) return -1;
+            else return 0;
+          });
+        })
+
+    }
     this.searchForm = new FormGroup({
       'from': new FormControl(null),
       'to': new FormControl(null)

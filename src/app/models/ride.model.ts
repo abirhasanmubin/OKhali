@@ -5,8 +5,8 @@ export class Ride {
     public startTime: any,
     public endTime: any,
     public rideStatus: string,
-    public rider?: string,
-    public trips?: string[],
+    public riderId?: string,
+    public tripList?: string[],
     public rideId?: string,
   ) { };
 }

@@ -75,7 +75,7 @@ export class AuthService implements OnInit {
         // this.setUserData()
       })
       .catch(error => {
-        console.log(error);;
+        console.log(error);
       })
   }
 

@@ -40,6 +40,13 @@ export class RideService {
 
     return this.ride;
   }
+
+  getUserRides(userId: string) {
+    return this.rides.pipe(map(trips => {
+      return trips.filter(ride => ride.riderId === userId);
+    }))
+  }
+
   addRide(ride: Ride) {
     const id = this.firestore.createId();
     ride.rideId = id;

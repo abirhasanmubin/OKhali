@@ -73,7 +73,7 @@ export class TripEditComponent implements OnInit, OnDestroy {
 
       if (!this.editMode) {
         let tempTrip: Trip;
-        tempTrip = new Trip(from, to, date, 'created', this.user.userId, null);
+        tempTrip = new Trip(from, to, date, 'created', this.user.userId, null, null, null);
         this.tripService.addTrip(tempTrip).then(responseData => {
           this.router.navigate(['/trips', responseData])
         })

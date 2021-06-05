@@ -3,6 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
+import { RideService } from './ride.service';
+import { TripService } from './trip.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,8 @@ export class UserService {
 
   constructor(
     private firestore: AngularFirestore,
+    private tripService: TripService,
+    private rideService: RideService
   ) {
     this.userCollection = this.firestore.collection<User>('users');
   }
@@ -38,6 +42,14 @@ export class UserService {
 
   deleteUser(id: string) {
     return this.userCollection.doc(id).delete();
+  }
+
+  getUserTripList(userId: string) {
+    return this.tripService.getUserTrips(userId);
+  }
+
+  getUserRideList(userId: string) {
+    return this.rideService.getUserRides(userId);
   }
 
 }

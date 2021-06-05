@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Trip } from '../models/trips.model';
 
 @Injectable({
@@ -39,6 +39,12 @@ export class TripService {
         return data;
       }))
     return this.trip;
+  }
+
+  getUserTrips(userId: string) {
+    return this.trips.pipe(map(trips => {
+      return trips.filter(trip => trip.userId === userId);
+    }))
   }
 
   addTrip(trip: Trip) {

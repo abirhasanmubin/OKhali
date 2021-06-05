@@ -11,7 +11,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private authService: AuthService
+
   ) { }
 
   ngOnInit(): void {

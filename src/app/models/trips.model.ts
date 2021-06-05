@@ -8,5 +8,7 @@ export class Trip {
     public tripStatus: string,
     public userId?: string,
     public tripId?: string,
+    public riderRequestList?: string[],
+    public riderId?: string,
   ) { }
 }

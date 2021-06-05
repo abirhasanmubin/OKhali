@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row" *ngIf="user.userId===ride.rider">
+  <div class="row" *ngIf="user.userId===ride.riderId">
     <div class="col-xs-12">
       <button [routerLink]="['/rides',id,'edit']" routerLinkActive="router-link-active" class="btn btn-warning">
         Edit Ride
@@ -28,7 +28,7 @@
       <h6>Status: <strong>{{ride?.rideStatus | uppercase}}</strong></h6>
     </div>
     <div class="col-md-12">
-      <h6>Users: {{ride?.trips}}</h6>
+      <h6>Users: {{ride?.tripList}}</h6>
     </div>
   </div>
 </div>
